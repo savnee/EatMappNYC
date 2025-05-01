@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Borough and Cuisine</title>
+    <style>
+        body {
+            background-color: #B9D9EB; /* Light blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 130vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+        .container {
+            background-color: white;
+            border-radius: 20px; /* Rounded edges */
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            margin-top: 50px; /* Increased margin to create space for the logo */
+        }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            z-index: 10; /* Ensure logo is always on top */
+            margin-bottom: 5px; /* Adds some space between the logo and the white box */
+        }
+        .logo-container img {
+            max-width: 150px; 
+            height: auto;
+        }
+        h1 {
+            margin: 5px 0;
+            font-size: 1.5em;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        select, input[type="submit"], .checkbox-container label {
+            font-size: 0.9em;
+            margin: 5px 0;
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        select {
+            background-color: #dcdcdc;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .checkbox-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            background-color: #dcdcdc;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 8px 16px;
+            font-size: 14px;
+            width: auto;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* New styles for the interactive map */
+        .interactive-map-container {
+            width: 100%; /* Make the container as wide as the screen */
+            max-width: 650px; /* Set a max-width larger than the white box */
+            margin-top: 30px;
+            text-align: center;
+        }
+        .interactive-map-container iframe {
+            width: 100%; /* Make the iframe fill the container */
+            height: 450px; /* Adjust the height as needed */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Columbia logo container -->
+    <div class="logo-container">
+        <!-- Columbia logo -->
+        <img src="/static/columbia.png" alt="Columbia Logo">
+    </div>
+
+    <!-- Main Form Section inside the white box -->
+    <div class="container">
+        <!-- App Logo centered inside the white box -->
+        <img src="{{ url_for('static', filename='Logo.png') }}" alt="App Logo">
+        
+        <!-- Title -->
+        <h1>Select Your Borough and Cuisine</h1>
+        <br>
+        <br>
+        <!-- Form -->
+        <form action="/" method="POST">
+            <label for="borough">Select Borough:</label>
+            <select id="borough" name="borough" required>
+                <option value="">Select Borough</option>
+                <option value="Manhattan">Manhattan</option>
+                <option value="Brooklyn">Brooklyn</option>
+                <option value="Queens">Queens</option>
+                <option value="The Bronx">The Bronx</option>
+                <option value="Staten Island">Staten Island</option>
+            </select>
+            
+            <br><br>
+            
+            <label>Select Cuisine (you can choose multiple):</label>
+            <div class="checkbox-container">
+                <label><input type="checkbox" name="cuisine" value="American"> American</label>
+                <label><input type="checkbox" name="cuisine" value="Asian/Asian Fusion"> Asian/Asian Fusion</label>
+                <label><input type="checkbox" name="cuisine" value="Caribbean"> Caribbean</label>
+                <label><input type="checkbox" name="cuisine" value="Chinese"> Chinese</label>
+                <label><input type="checkbox" name="cuisine" value="Chinese/Cuban"> Chinese/Cuban</label>
+                <label><input type="checkbox" name="cuisine" value="Continental"> Continental</label>
+                <label><input type="checkbox" name="cuisine" value="Eastern European"> Eastern European</label>
+                <label><input type="checkbox" name="cuisine" value="French"> French</label>
+                <label><input type="checkbox" name="cuisine" value="German"> German</label>
+                <label><input type="checkbox" name="cuisine" value="Greek"> Greek</label>
+                <label><input type="checkbox" name="cuisine" value="Indian"> Indian</label>
+                <label><input type="checkbox" name="cuisine" value="Italian"> Italian</label>
+                <label><input type="checkbox" name="cuisine" value="Japanese"> Japanese</label>
+                <label><input type="checkbox" name="cuisine" value="Korean"> Korean</label>
+                <label><input type="checkbox" name="cuisine" value="Latin American"> Latin American</label>
+                <label><input type="checkbox" name="cuisine" value="Mediterranean"> Mediterranean</label>
+                <label><input type="checkbox" name="cuisine" value="Mexican"> Mexican</label>
+                <label><input type="checkbox" name="cuisine" value="Middle Eastern"> Middle Eastern</label>
+                <label><input type="checkbox" name="cuisine" value="Pizza"> Pizza</label>
+                <label><input type="checkbox" name="cuisine" value="Seafood"> Seafood</label>
+                <label><input type="checkbox" name="cuisine" value="Soul Food"> Soul Food</label>
+                <label><input type="checkbox" name="cuisine" value="Steakhouse"> Steakhouse</label>
+                <label><input type="checkbox" name="cuisine" value="Tex-Mex"> Tex-Mex</label>
+                <label><input type="checkbox" name="cuisine" value="Turkish"> Turkish</label>
+                <label><input type="checkbox" name="cuisine" value="Spanish"> Spanish</label>
+            </div>
+            <br><br>
+            
+            <div class="button-container">
+                <input type="submit" value="Next">
+            </div>
+        </form>
+    </div>
+
+    <!-- Interactive Map Section -->
+    <div class="interactive-map-container">
+        <iframe src="{{ url_for('static', filename='interactiveMap.html') }}" title="Interactive Map"></iframe>
+    </div>
+</body>
+</html>

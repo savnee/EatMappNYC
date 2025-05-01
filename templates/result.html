@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Recommended Restaurants</title>
+    <style>
+        body {
+            background-color: #B9D9EB;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: auto;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h2 {
+            margin: 20px 0;
+            font-size: 2em;
+            color: #1A4D92;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .restaurant-item {
+            background-color: #ffffff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .restaurant-item strong {
+            font-size: 1.3em;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .restaurant-item p {
+            font-size: 0.9em;
+            margin: 5px 0;
+            color: #555;
+        }
+
+        /* Make map same width as boxes above */
+        #map {
+            width: 100%;
+            max-width: 700px; /* Same as the restaurant list max-width */
+            height: 500px;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .restaurant-item {
+                padding: 12px;
+            }
+
+            iframe {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Top Recommended Restaurants</h2>
+    <ul aria-label="Top Restaurants List">
+        {% if output %}
+            {% for restaurant in output %}
+                <li class="restaurant-item" role="listitem">
+                    <strong>{{ restaurant['name'] }}</strong>
+                    <p>Address: {{ restaurant['address'] }}</p>
+                    <p>Cuisine: {{ restaurant['CUISINE DESCRIPTION'] }}</p>
+                    <p>User Preference: {{ restaurant['user_preference'] }}%</p>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>No restaurants to display.</p>
+        {% endif %}
+    </ul>
+
+    <h2>Map of Restaurants</h2>
+    <div id="map" aria-label="Map of Recommended Restaurants">
+        {% if map_html %}
+            {{ map_html|safe }}
+        {% else %}
+            <p>Map could not be generated at this time.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

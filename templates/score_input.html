@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Scores</title>
+    <style>
+        body {
+            background-color: #B9D9EB; /* Light blue background */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: white;
+            border-radius: 20px; /* Rounded edges */
+            padding: 30px; /* Added more padding around the container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+        }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            top: -30px; /* Adjust the Columbia logo's position */
+        }
+        .logo-container img {
+            max-width: 120px; /* Adjusted size of Columbia logo */
+            height: auto;
+        }
+        h1 {
+            margin: 5px 0; /* Reduced margin between title lines */
+            font-size: 1.5em;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px; /* Reduced margin between label and input */
+            font-size: 1em;
+        }
+        input[type="number"], input[type="submit"] {
+            font-size: 0.9em;
+            margin: 5px 0; /* Reduced margin between input fields */
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #dcdcdc;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 14px;
+            width: auto;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .button-container {
+            margin-top: 30px; /* Increased margin from the form entries */
+            display: flex;
+            justify-content: center;
+        }
+        .charts-container {
+            margin-top: 40px; /* Space between the form and the images */
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px; /* Make sure the images' container is the same width as the white box */
+            margin-left: auto;
+            margin-right: auto; /* Centers the chart container */
+        }
+
+        .charts-container img {
+            width: 48%; /* Adjust the width to take up half of the container's width */
+            height: auto;
+            border-radius: 10px; /* Optional, adds rounded corners to images */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Columbia logo centered above the white box -->
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='columbia.png') }}" alt="Columbia Logo">
+    </div>
+
+    <!-- Main Form Section inside the white box -->
+    <div class="container">
+        <!-- Title -->
+        <h1>Tell Us More About Your Preferences :) </h1>
+        <h1>From 1 to 10 </h1>
+        <br>
+        <br>
+        <br>
+
+        <!-- Form -->
+        <form action="{{ url_for('score_input') }}" method="POST">
+            <!-- Hidden fields for borough and cuisine selections -->
+            <input type="hidden" name="borough" value="{{ borough }}">
+            <input type="hidden" name="cuisines" value="{{ cuisines | join(',') }}">
+
+            <!-- Inspection Score -->
+            <label for="inspection_score">How much do you value restaurant inspection results?</label>
+            <input type="number" id="inspection_score" name="inspection_score" min="1" max="10" required>
+            
+            <!-- Review Score -->
+            <label for="review_score">How much do you value other people’s experiences at the same restaurant?</label>
+            <input type="number" id="review_score" name="review_score" min="1" max="10" required>
+
+            <!-- Submit Button -->
+            <div class="button-container">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-container">
+        <img src="{{ url_for('static', filename='chart1.png') }}" alt="Chart1">
+        <img src="{{ url_for('static', filename='chart2.jpg') }}" alt="Chart 2">
+    </div>
+</body>
+</html>
